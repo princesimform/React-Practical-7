@@ -152,3 +152,17 @@ User management app
 <img src="https://github.com/princesimform/React-Practical-6/assets/125016923/1a55aa6d-19bd-42e3-a687-9e3b8dcf8d14" align="center"/>
 
 <img src="https://github.com/princesimform/React-Practical-6/assets/125016923/505ec1b6-b0b7-4563-b482-0e8cbc1e8d35" align="center"/> -->
+
+Pages
+
+- Sign Up (Done)
+- Login (Done)
+- 404 (Done)
+- Home (Done)
+- Welcome
+
+functionality
+  Routing (React-Router-Dom) (Done)
+  firebase for Auth
+  Validation(Formik)
+  Error Show below input
