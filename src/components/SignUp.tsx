@@ -42,14 +42,14 @@ function SignUp() {
   };
 
   return (
-    <div className='bg-faebd8'>
-      <div className='align-items-center justify-content-center container auth-container  pt-5 pt-sm-5 pt-md-0'>
-        <div className='shadow p-3 mb-5 bg-white rounded'>
-          <div className='row'>
-            <div className='col-md-5 m-auto'>
-              <div className='sign-up-container'>
-                <h1 className=''>SignUp</h1>
-                <div className='text-center'>
+    <div className="bg-faebd8">
+      <div className="align-items-center justify-content-center container auth-container  pt-5 pt-sm-5 pt-md-0">
+        <div className="shadow p-3 mb-5 bg-white rounded">
+          <div className="row">
+            <div className="col-md-5 m-auto">
+              <div className="sign-up-container">
+                <h1 className="">SignUp</h1>
+                <div className="text-center">
                   {/* {Profileimage && (
                     <img
                       height='40'
@@ -65,11 +65,11 @@ function SignUp() {
                     onSubmit={handleSubmit}
                     validationSchema={validationSchemaSignup}
                   >
-                    {({ values, handleChange, handleSubmit }) => (
+                    {({ values, handleChange, handleSubmit , errors }) => (
                       <form
-                        action=''
-                        method='post '
-                        className='mt-3'
+                        action=""
+                        method="post "
+                        className="mt-3"
                         onSubmit={handleSubmit}
                       >
                         {/* <div className='form-group text-center '>
@@ -117,11 +117,11 @@ function SignUp() {
                         </div> */}
                         {MicroFormField.map((element) => (
                           <div
-                            className='form-group text-left '
+                            className="form-group text-left "
                             key={element.id}
                           >
                             <label
-                              className='py-2 cursor-pointer'
+                              className="py-2 cursor-pointer"
                               htmlFor={element.id}
                             >
                               {element.lable}
@@ -129,24 +129,27 @@ function SignUp() {
                             <Field
                               type={element.type}
                               id={element.id}
-                              aria-describedby='nameHelp'
+                              aria-describedby="nameHelp"
                               name={element.name}
-                              className='form-control'
+                              className="form-control"
                             />
-                            <ErrorMessage
-                              name={element.name}
-                              component='div'
-                              className='text-danger'
-                            />
+                            <div>
+                              <p className="mb-0">{errors.confirm_password}</p>
+                              {/* <ErrorMessage
+                                name={element.name}
+                                component="p"
+                                className="text-danger"
+                              /> */}
+                            </div>
                           </div>
                         ))}
-                        <button type='submit' className='btn btn-primary my-4 '>
+                        <button type="submit" className="btn btn-primary my-4 ">
                           Submit
                         </button>
                         <button
-                          type='reset'
-                          value='Reset'
-                          className='btn btn-danger my-4 mx-4 '
+                          type="reset"
+                          value="Reset"
+                          className="btn btn-danger my-4 mx-4 "
                         >
                           Reset
                         </button>
@@ -154,13 +157,13 @@ function SignUp() {
                     )}
                   </Formik>
                   <p>
-                    Already Register <Link to='/login'>login</Link>
+                    Already Register <Link to="/login">login</Link>
                   </p>
                 </div>
               </div>
             </div>
-            <div className='col-md-7 m-auto'>
-              <img className='user-profile-img' src={UserProfile} alt='' />
+            <div className="col-md-7 m-auto">
+              <img className="user-profile-img" src={UserProfile} alt="" />
             </div>
           </div>
         </div>

@@ -1,12 +1,12 @@
 import * as Yup from "yup";
-
+import { ConfirmPassword, Email, Name, Password, PhoneNo } from "./FormField";
 const validationSchemaSignup = Yup.object({
   // profileImage: Yup.mixed().required("Profile image is required"),
-  name: Yup.string().required("Name is required"),
-  email: Yup.string().required("Email is required"),
-  phone_no: Yup.string().required("Mobile No is required"),
-  password: Yup.string().required("Password is required"),
-  confirm_password: Yup.string().required("Confirm Password is required"),
+  name: Name.validation,
+  email: Email.validation,
+  phone_no: PhoneNo.validation,
+  password: Password.validation,
+  confirm_password: ConfirmPassword.validation,
 });
 
 const validationSchemaLogin = Yup.object({
