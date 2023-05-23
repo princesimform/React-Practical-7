@@ -3,11 +3,10 @@ export interface InputFieldType {
   name: string;
   lable: string;
   id: string;
-  validation: unknown;
 }
 
 export interface signUpInitialValuesTypes {
-  // profile: string;
+  profile: null | object;
   name: string;
   email: string;
   phone_no: string;

@@ -1,6 +1,4 @@
 #root {
-  /* max-width: 1280px;
-  padding: 2rem; */
   width: 100%;
   height: 100vh;
 }
@@ -11,10 +9,6 @@
 
 .card {
   padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 .login-user-profile-img {

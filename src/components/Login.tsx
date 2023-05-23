@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import UserProfile from "./../assets/HomeProfile.png";
-import { Email, Password } from "./FormField";
+import InputField from "./InputField";
 import { Formik, Field, ErrorMessage } from "formik";
 import { validationSchemaLogin } from "./validationSchema";
 import { loginInitialValuesTypes } from "./interface/interfaceList";
@@ -12,7 +12,6 @@ const initialValues: loginInitialValuesTypes = {
 };
 
 function Login() {
-  const [MicroFormField, setMicroFormField] = useState([Email, Password]);
   const handleSubmit = (values: loginInitialValuesTypes) => {
     console.log("values");
     console.log(values);
@@ -20,13 +19,13 @@ function Login() {
 
   return (
     <>
-      <div className="bg-faebd8">
-        <div className="align-items-center justify-content-center container auth-container  pt-5 pt-sm-5 pt-md-0  ">
-          <div className="shadow p-3 mb-5 bg-white rounded">
-            <div className="row">
-              <div className="col-md-5 m-auto">
-                <div className="login-container">
-                  <h1 className="">Login</h1>
+      <div className='bg-faebd8'>
+        <div className='align-items-center justify-content-center container auth-container  pt-5 pt-sm-5 pt-md-0  '>
+          <div className='shadow p-3 mb-5 bg-white rounded'>
+            <div className='row'>
+              <div className='col-md-5 m-auto'>
+                <div className='login-container'>
+                  <h1 className=''>Login</h1>
                   <div>
                     <Formik
                       initialValues={initialValues}
@@ -35,39 +34,28 @@ function Login() {
                     >
                       {({ values, handleChange, handleSubmit }) => (
                         <form
-                          action=""
-                          method="post "
-                          className="mt-3"
+                          action=''
+                          method='post '
+                          className='mt-3'
                           onSubmit={handleSubmit}
                         >
-                          {MicroFormField.map((element) => (
-                            <div
-                              className="form-group text-left "
-                              key={element.id}
-                            >
-                              <label
-                                className="py-2 cursor-pointer"
-                                htmlFor={element.id}
-                              >
-                                {element.lable}
-                              </label>
-                              <Field
-                                type={element.type}
-                                id={element.id}
-                                aria-describedby="nameHelp"
-                                name={element.name}
-                                className="form-control"
-                              />
-                              <ErrorMessage
-                                name={element.name}
-                                component="div"
-                                className="text-danger"
-                              />
-                            </div>
-                          ))}
+                          <InputField
+                            type='email'
+                            name='email'
+                            label='Email address'
+                            hasValidate={true}
+                          />
+
+                          <InputField
+                            type='password'
+                            name='password'
+                            label='Password'
+                            hasValidate={true}
+                          />
+
                           <button
-                            type="submit"
-                            className="btn btn-primary my-4 "
+                            type='submit'
+                            className='btn btn-primary my-4 '
                           >
                             Submit
                           </button>
@@ -107,16 +95,16 @@ function Login() {
                       </button>
                     </form> */}
                     <p>
-                      Don't Have Account ? <Link to="/sign-up">Sign Up</Link>
+                      Don't Have Account ? <Link to='/sign-up'>Sign Up</Link>
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="col-md-7 m-auto">
+              <div className='col-md-7 m-auto'>
                 <img
-                  className="login-user-profile-img"
+                  className='login-user-profile-img'
                   src={UserProfile}
-                  alt=""
+                  alt=''
                 />
               </div>
             </div>
