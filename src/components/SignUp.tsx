@@ -4,12 +4,15 @@ import { Link } from "react-router-dom";
 import UserProfile from "./../assets/HomeProfile.png";
 import { validationSchemaSignup } from "./validationSchema";
 import InputField from "./InputField";
+
 import {
   InputFieldType,
   signUpInitialValuesTypes,
 } from "./interface/interfaceList";
+import { useDispatch } from "react-redux";
+import { userActions, userSlice } from "../redux/userSlice";
 const initialValues: signUpInitialValuesTypes = {
-  profile: null,
+  profile: "",
   name: "",
   email: "",
   phone_no: "",
@@ -18,9 +21,8 @@ const initialValues: signUpInitialValuesTypes = {
 };
 
 function SignUp() {
-  const [Profileimage, setProfileImage] = useState<undefined | string>(
-    undefined
-  );
+  const dispatch = useDispatch();
+  const [Profileimage, setProfileImage] = useState<string>("");
 
   const onImageChange = (
     event: ChangeEvent<HTMLInputElement>,
@@ -28,13 +30,19 @@ function SignUp() {
   ) => {
     if (event.target.files && event.target.files[0]) {
       setProfileImage(URL.createObjectURL(event.target.files[0]));
+
+      const reader = new FileReader();
+      reader.addEventListener("load", function (e) {});
+      reader.readAsDataURL(event.target.files[0]);
       setFieldValue("profile", event.target.files[0]);
     }
   };
 
   const handleSubmit = (values: signUpInitialValuesTypes) => {
     console.log("values");
+    values.profile = Profileimage;
     console.log(values);
+    dispatch(userActions.signUpUser(values));
   };
 
   return (

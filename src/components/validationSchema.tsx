@@ -1,7 +1,7 @@
 import * as Yup from "yup";
 
 const phoneRegExp = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
-const FILE_SIZE = 160 * 1024;
+const FILE_SIZE = 1600 * 1024;
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 const validationSchemaSignup = Yup.object({
   profile: Yup.mixed()

@@ -6,7 +6,7 @@ export interface InputFieldType {
 }
 
 export interface signUpInitialValuesTypes {
-  profile: null | object;
+  profile: string;
   name: string;
   email: string;
   phone_no: string;

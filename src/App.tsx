@@ -5,9 +5,13 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import { RouterProvider } from "react-router-dom";
 import router from "./components/Route/router";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 function App() {
   return (
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
     // <>
     //     <Home />
     //   <div className='container auth-container mt-5'>
