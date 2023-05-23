@@ -7,7 +7,6 @@ interface PropsType {
   hasValidate?: boolean;
 }
 function InputField({ type, name, label, hasValidate = false }: PropsType) {
-  console.log(hasValidate);
 
   return (
     <div>
