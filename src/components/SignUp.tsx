@@ -1,16 +1,19 @@
 import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UserProfile from "./../assets/HomeProfile.png";
 import { validationSchemaSignup } from "./validationSchema";
 import InputField from "./InputField";
-
+import { useNavigate } from "react-router-dom";
 import {
   InputFieldType,
   signUpInitialValuesTypes,
+  userDataType,
 } from "./interface/interfaceList";
 import { useDispatch } from "react-redux";
-import { userActions, userSlice } from "../redux/userSlice";
+import { userActions, userLoginActions, userSlice } from "../redux/userSlice";
+import { useSelector } from "react-redux";
+
 const initialValues: signUpInitialValuesTypes = {
   profile: "",
   name: "",
@@ -21,28 +24,57 @@ const initialValues: signUpInitialValuesTypes = {
 };
 
 function SignUp() {
+  const { loginUser } = useSelector((state: any) => state.userLoginSlice);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [Profileimage, setProfileImage] = useState<string>("");
-
+  const [CustomErrorMessage, setCustomErrorMessage] = useState<string>("");
   const onImageChange = (
     event: ChangeEvent<HTMLInputElement>,
     setFieldValue: any
   ) => {
     if (event.target.files && event.target.files[0]) {
-      setProfileImage(URL.createObjectURL(event.target.files[0]));
+      // setProfileImage(URL.createObjectURL(event.target.files[0]));
 
       const reader = new FileReader();
-      reader.addEventListener("load", function (e) {});
+      reader.addEventListener("load", function (e) {
+        // console.log(reader.result);
+        setProfileImage(JSON.stringify(reader.result));
+      });
       reader.readAsDataURL(event.target.files[0]);
       setFieldValue("profile", event.target.files[0]);
     }
   };
 
+  useEffect(() => {
+    if (loginUser.isLogin) {
+      navigate("/welcome", { replace: true });
+    }
+  }, []);
+
   const handleSubmit = (values: signUpInitialValuesTypes) => {
-    console.log("values");
-    values.profile = Profileimage;
-    console.log(values);
-    dispatch(userActions.signUpUser(values));
+    const reqData: userDataType = { isLogin: true, ...values };
+    reqData.profile = Profileimage;
+    try {
+      dispatch(userActions.signUpUser(reqData));
+      dispatch(
+        userLoginActions.loginUser({
+          email: reqData.email,
+          password: reqData.password,
+        })
+      );
+      navigate("/welcome");
+    } catch (error: unknown) {
+      if (error instanceof Error) setCustomErrorMessage(error.message);
+      setTimeout(() => {
+        setCustomErrorMessage("");
+      }, 2000);
+    }
+  };
+
+  const handleReset = (handleReset: any) => {
+    handleReset();
+    setProfileImage("");
   };
 
   return (
@@ -59,7 +91,7 @@ function SignUp() {
                       height='40'
                       width='40'
                       alt='preview image'
-                      src={Profileimage}
+                      src={JSON.parse(Profileimage)}
                     />
                   )}
                 </div>
@@ -69,12 +101,7 @@ function SignUp() {
                     onSubmit={handleSubmit}
                     validationSchema={validationSchemaSignup}
                   >
-                    {({
-                      values,
-                      handleChange,
-                      handleSubmit,
-                      setFieldValue,
-                    }) => (
+                    {({ values, handleSubmit, setFieldValue, resetForm }) => (
                       <form
                         action=''
                         method='post '
@@ -117,6 +144,11 @@ function SignUp() {
                           label='Email address'
                           hasValidate={true}
                         />
+                        {CustomErrorMessage != "" ? (
+                          <p className='text-danger'>{CustomErrorMessage}</p>
+                        ) : (
+                          <></>
+                        )}
 
                         <InputField
                           type='number'
@@ -146,6 +178,8 @@ function SignUp() {
                           type='reset'
                           value='Reset'
                           className='btn btn-danger my-4 mx-4 '
+                          onClick={() => handleReset(resetForm)}
+                          disabled={values == initialValues ? true : false}
                         >
                           Reset
                         </button>

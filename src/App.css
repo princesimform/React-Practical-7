@@ -43,6 +43,9 @@ input {
 .bg-faebd8 {
   background-color: #faebd8 !important;
 }
+.create-user-container {
+  width: max-content !important;
+}
 @media (min-width: 768px) {
   .auth-container {
     height: 100vh !important;

@@ -1,15 +1,15 @@
 import * as Yup from "yup";
-
 const phoneRegExp = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
 const FILE_SIZE = 1600 * 1024;
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
+
 const validationSchemaSignup = Yup.object({
   profile: Yup.mixed()
     .required("A file is Require")
     .test(
       "fileSize",
       "Filesize is too large",
-      (value: any) => value && value.size <= FILE_SIZE
+      (value: any) => value.size <= FILE_SIZE
     )
     .test(
       "fileFormat",
@@ -19,7 +19,7 @@ const validationSchemaSignup = Yup.object({
   name: Yup.string().required("Name is required").min(15),
   email: Yup.string()
     .required("Email is required")
-    .email("Enter valid email addredd"),
+    .email("Enter valid email address"),
   phone_no: Yup.string()
     .required("Mobile No is required")
     .matches(phoneRegExp, "Phone number is not valid"),

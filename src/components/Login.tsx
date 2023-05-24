@@ -1,20 +1,44 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UserProfile from "./../assets/HomeProfile.png";
 import InputField from "./InputField";
 import { Formik, Field, ErrorMessage } from "formik";
 import { validationSchemaLogin } from "./validationSchema";
 import { loginInitialValuesTypes } from "./interface/interfaceList";
-
+import { useDispatch, useSelector } from "react-redux";
+import { userLoginActions, userLoginSlice } from "../redux/userSlice";
+import { useNavigate, redirect } from "react-router-dom";
 const initialValues: loginInitialValuesTypes = {
   email: "",
   password: "",
 };
 
 function Login() {
+  const { loginUser } = useSelector((state: any) => state.userLoginSlice);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [CustomErrorMessage, setCustomErrorMessage] = useState<string>("");
+  useEffect(() => {
+    if (loginUser.isLogin) {
+      navigate("/welcome", { replace: true });
+    }
+  }, []);
+
   const handleSubmit = (values: loginInitialValuesTypes) => {
-    console.log("values");
-    console.log(values);
+    try {
+      dispatch(userLoginActions.loginUser(values));
+      navigate("/welcome");
+    } catch (error: unknown) {
+      console.log(error);
+      if (error instanceof Error) setCustomErrorMessage(error.message);
+      setTimeout(() => {
+        setCustomErrorMessage("");
+      }, 2000);
+    }
+
+    dispatch(userLoginActions.loginUser(values));
+    // console.log("values");
+    // console.log(values);
   };
 
   return (
@@ -32,7 +56,7 @@ function Login() {
                       onSubmit={handleSubmit}
                       validationSchema={validationSchemaLogin}
                     >
-                      {({ values, handleChange, handleSubmit }) => (
+                      {({ values, handleSubmit }) => (
                         <form
                           action=''
                           method='post '
@@ -53,6 +77,12 @@ function Login() {
                             hasValidate={true}
                           />
 
+                          {CustomErrorMessage != "" ? (
+                            <p className='text-danger'>{CustomErrorMessage}</p>
+                          ) : (
+                            <></>
+                          )}
+
                           <button
                             type='submit'
                             className='btn btn-primary my-4 '
@@ -62,38 +92,6 @@ function Login() {
                         </form>
                       )}
                     </Formik>
-                    {/* <form action='' method='post ' className='mt-3'>
-                      <div className='form-group text-left '>
-                        <label
-                          className='py-2 cursor-pointer'
-                          htmlFor='exampleInputEmail1'
-                        >
-                          Email address
-                        </label>
-                        <input
-                          type='email'
-                          className='form-control'
-                          id='exampleInputEmail1'
-                          aria-describedby='emailHelp'
-                        />
-                      </div>
-                      <div className='form-group '>
-                        <label
-                          className='py-2 cursor-pointer'
-                          htmlFor='exampleInputPassword1'
-                        >
-                          Password
-                        </label>
-                        <input
-                          type='password'
-                          className='form-control'
-                          id='exampleInputPassword1'
-                        />
-                      </div>
-                      <button type='submit' className='btn btn-primary my-4 '>
-                        Submit
-                      </button>
-                    </form> */}
                     <p>
                       Don't Have Account ? <Link to='/sign-up'>Sign Up</Link>
                     </p>
