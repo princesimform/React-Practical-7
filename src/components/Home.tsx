@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NewUserImage from "./../assets/new_user.png";
+import loginImage from "./../assets/my_login.png"
 import { useSelector } from "react-redux";
 import Header from "./Header";
 function Home() {
@@ -19,7 +20,7 @@ function Home() {
                   <div className=' image d-flex flex-column justify-content-center align-items-center'>
                     <div className=' '>
                       <img
-                        src={NewUserImage}
+                        src={loginImage}
                         height='100'
                         width='100'
                         className='rounded-circle border border-secondary border-2'

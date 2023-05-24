@@ -43,13 +43,13 @@ function Header() {
               {loginUser.isLogin ? (
                 <button
                   type='button'
-                  className='btn btn-outline-success'
+                  className='btn btn-dark' 
                   onClick={logout}
                 >
                   Log out
                 </button>
               ) : (
-                <Link className='btn btn-outline-success' to='/login'>
+                <Link className='btn btn-dark'  to='/login'>
                   Login
                 </Link>
               )}
