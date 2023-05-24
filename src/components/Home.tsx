@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import NewUserImage from "./../assets/new_user.png";
-import loginImage from "./../assets/my_login.png"
+import loginImage from "./../assets/my_login.png";
 import { useSelector } from "react-redux";
 import Header from "./Header";
 function Home() {

@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import Home from "./Home";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Header from "./Header";

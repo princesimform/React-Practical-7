@@ -37,9 +37,7 @@ input {
 .cursor-pointer {
   cursor: pointer;
 }
-.profile-card,
-.description-card {
-}
+
 .bg-faebd8 {
   background-color: #faebd8 !important;
 }

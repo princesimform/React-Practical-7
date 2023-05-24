@@ -1,4 +1,4 @@
-import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
+import { ErrorMessage, Field, Formik } from "formik";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import UserProfile from "./../assets/HomeProfile.png";
@@ -6,14 +6,12 @@ import { validationSchemaSignup } from "./validationSchema";
 import InputField from "./InputField";
 import { useNavigate } from "react-router-dom";
 import {
-  InputFieldType,
   signUpInitialValuesTypes,
   userDataType,
 } from "./interface/interfaceList";
 import { useDispatch } from "react-redux";
-import { userActions, userLoginActions, userSlice } from "../redux/userSlice";
+import { userActions, userLoginActions } from "../redux/userSlice";
 import { useSelector } from "react-redux";
-
 const initialValues: signUpInitialValuesTypes = {
   profile: "",
   name: "",
@@ -34,11 +32,8 @@ function SignUp() {
     setFieldValue: any
   ) => {
     if (event.target.files && event.target.files[0]) {
-      // setProfileImage(URL.createObjectURL(event.target.files[0]));
-
       const reader = new FileReader();
       reader.addEventListener("load", function (e) {
-        // console.log(reader.result);
         setProfileImage(JSON.stringify(reader.result));
       });
       reader.readAsDataURL(event.target.files[0]);

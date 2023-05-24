@@ -37,8 +37,6 @@ function Login() {
     }
 
     dispatch(userLoginActions.loginUser(values));
-    // console.log("values");
-    // console.log(values);
   };
 
   return (
