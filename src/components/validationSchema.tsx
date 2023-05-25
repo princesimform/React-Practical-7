@@ -1,6 +1,6 @@
 import * as Yup from "yup";
-const phoneRegExp = /^(?:(?:\+|0{0,2})91(\s*[\-]\s*)?|[0]?)?[789]\d{9}$/;
-const FILE_SIZE = 160 * 1024;
+const phoneRegExp = /^(\+91|0)?[6789]\d{9}$/;
+const FILE_SIZE = 2000 * 1024;
 const SUPPORTED_FORMATS = ["image/jpg", "image/jpeg", "image/gif", "image/png"];
 
 export interface YupSchemaInterface {
@@ -34,7 +34,9 @@ const validationSchemaSignup: Yup.ObjectSchema<YupSchemaInterface> =
     phone_no: Yup.string()
       .required("Mobile No is required")
       .matches(phoneRegExp, "Phone number is not valid"),
-    password: Yup.string().required("Password is required"),
+    password: Yup.string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long"),
     confirm_password: Yup.string()
       .oneOf([Yup.ref("password"), undefined], "Password must match")
       .required("confirm password require"),

@@ -7,7 +7,6 @@ import Header from "./Header";
 import { Rootstate } from "../redux/store";
 function Home() {
   const { loginUser } = useSelector((state: Rootstate) => state.userLoginSlice);
-  console.log(loginUser);
 
   return (
     <>

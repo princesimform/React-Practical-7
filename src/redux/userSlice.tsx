@@ -52,7 +52,6 @@ export const userLoginSlice = createSlice({
   initialState: LoginInitalState,
   reducers: {
     loginUser(state, action) {
-      console.log(action.payload);
       const userData = JSON.parse(localStorage.getItem("userData")!);
       const userInitialState: userDataType[] = userData == null ? [] : userData;
       let userList: userDataType[] = [];
@@ -65,6 +64,7 @@ export const userLoginSlice = createSlice({
 
         for (let pos = 0; pos < userList.length; pos++) {
           if (pos == userPosition) {
+
             if (
               action.payload.email == userList[pos]["email"] &&
               action.payload.password == userList[pos]["password"]

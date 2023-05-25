@@ -55,8 +55,8 @@ function SignUp() {
     const reqData: userDataType = { isLogin: true, ...values };
     reqData.profile = Profileimage;
     const hasPassword = await sha256(reqData.password);
-    reqData.password = JSON.stringify(hasPassword);
-
+    reqData.password = hasPassword;
+    
     try {
       dispatch(userActions.signUpUser(reqData));
       dispatch(
@@ -67,6 +67,8 @@ function SignUp() {
       );
       navigate("/welcome");
     } catch (error: unknown) {
+      const hasPassword = await sha256(reqData.password);
+
       if (error instanceof Error) setCustomErrorMessage(error.message);
       setTimeout(() => {
         setCustomErrorMessage("");

@@ -27,14 +27,16 @@ function Login() {
   }, []);
 
   const handleSubmit = async (values: loginInitialValuesTypes) => {
-    const reqData: loginInitialValuesTypes = values;
-    const hasPassword = await sha256(reqData.password);
-    reqData.password = JSON.stringify(hasPassword);
+    const hasPassword = await sha256(values.password);
+    const reqData: loginInitialValuesTypes = {
+      email: values.email,
+      password: hasPassword,
+    };
+
     try {
-      dispatch(userLoginActions.loginUser(values));
+      dispatch(userLoginActions.loginUser(reqData));
       navigate("/welcome");
     } catch (error: unknown) {
-      console.log(error);
       if (error instanceof Error) setCustomErrorMessage(error.message);
       setTimeout(() => {
         setCustomErrorMessage("");
