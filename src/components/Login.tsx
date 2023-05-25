@@ -8,6 +8,7 @@ import { loginInitialValuesTypes } from "./interface/interfaceList";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginActions, userLoginSlice } from "../redux/userSlice";
 import { useNavigate, redirect } from "react-router-dom";
+import { sha256 } from "crypto-hash";
 const initialValues: loginInitialValuesTypes = {
   email: "",
   password: "",
@@ -24,7 +25,10 @@ function Login() {
     }
   }, []);
 
-  const handleSubmit = (values: loginInitialValuesTypes) => {
+  const handleSubmit = async (values: loginInitialValuesTypes) => {
+    const reqData: loginInitialValuesTypes = values;
+    const hasPassword = await sha256(reqData.password);
+    reqData.password = JSON.stringify(hasPassword);
     try {
       dispatch(userLoginActions.loginUser(values));
       navigate("/welcome");

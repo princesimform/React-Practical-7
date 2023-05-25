@@ -9,6 +9,8 @@ import {
   signUpInitialValuesTypes,
   userDataType,
 } from "./interface/interfaceList";
+import { sha256 } from "crypto-hash";
+
 import { useDispatch } from "react-redux";
 import { userActions, userLoginActions } from "../redux/userSlice";
 import { useSelector } from "react-redux";
@@ -47,9 +49,12 @@ function SignUp() {
     }
   }, []);
 
-  const handleSubmit = (values: signUpInitialValuesTypes) => {
+  const handleSubmit = async (values: signUpInitialValuesTypes) => {
     const reqData: userDataType = { isLogin: true, ...values };
     reqData.profile = Profileimage;
+    const hasPassword = await sha256(reqData.password);
+    reqData.password = JSON.stringify(hasPassword);
+
     try {
       dispatch(userActions.signUpUser(reqData));
       dispatch(
