@@ -14,6 +14,7 @@ import { sha256 } from "crypto-hash";
 import { useDispatch } from "react-redux";
 import { userActions, userLoginActions } from "../redux/userSlice";
 import { useSelector } from "react-redux";
+import { Rootstate } from "../redux/store";
 const initialValues: signUpInitialValuesTypes = {
   profile: "",
   name: "",
@@ -24,14 +25,15 @@ const initialValues: signUpInitialValuesTypes = {
 };
 
 function SignUp() {
-  const { loginUser } = useSelector((state: any) => state.userLoginSlice);
+  const { loginUser } = useSelector((state: Rootstate) => state.userLoginSlice);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [Profileimage, setProfileImage] = useState<string>("");
   const [CustomErrorMessage, setCustomErrorMessage] = useState<string>("");
   const onImageChange = (
     event: ChangeEvent<HTMLInputElement>,
-    setFieldValue: any
+    setFieldValue: Function
   ) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader();
@@ -44,7 +46,7 @@ function SignUp() {
   };
 
   useEffect(() => {
-    if (loginUser.isLogin) {
+    if (loginUser != null) {
       navigate("/welcome", { replace: true });
     }
   }, []);
@@ -72,7 +74,7 @@ function SignUp() {
     }
   };
 
-  const handleReset = (handleReset: any) => {
+  const handleReset = (handleReset: Function) => {
     handleReset();
     setProfileImage("");
   };

@@ -1,6 +1,12 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import { userSlice } from "./userSlice";
+import { userDataType } from "../components/interface/interfaceList";
+import { LoginInitalStateType, userSlice } from "./userSlice";
 import { userLoginSlice } from "./userSlice";
+
+export interface Rootstate {
+  userSlice: userDataType[];
+  userLoginSlice: LoginInitalStateType;
+}
 const store = configureStore({
   reducer: {
     userSlice: userSlice.reducer,

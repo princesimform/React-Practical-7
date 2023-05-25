@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { userLoginActions } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import { Rootstate } from "../redux/store";
 function Header() {
-  const { loginUser } = useSelector((state: any) => state.userLoginSlice);
+  const { loginUser } = useSelector((state: Rootstate) => state.userLoginSlice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logout = () => {
@@ -39,16 +40,12 @@ function Header() {
               </li>
             </ul>
             <form className='d-flex' role='search'>
-              {loginUser.isLogin ? (
-                <button
-                  type='button'
-                  className='btn btn-dark' 
-                  onClick={logout}
-                >
+              {loginUser != null ? (
+                <button type='button' className='btn btn-dark' onClick={logout}>
                   Log out
                 </button>
               ) : (
-                <Link className='btn btn-dark'  to='/login'>
+                <Link className='btn btn-dark' to='/login'>
                   Login
                 </Link>
               )}

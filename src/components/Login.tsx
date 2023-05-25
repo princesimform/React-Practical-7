@@ -9,18 +9,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { userLoginActions, userLoginSlice } from "../redux/userSlice";
 import { useNavigate, redirect } from "react-router-dom";
 import { sha256 } from "crypto-hash";
+import { Rootstate } from "../redux/store";
 const initialValues: loginInitialValuesTypes = {
   email: "",
   password: "",
 };
 
 function Login() {
-  const { loginUser } = useSelector((state: any) => state.userLoginSlice);
+  const { loginUser } = useSelector((state: Rootstate) => state.userLoginSlice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [CustomErrorMessage, setCustomErrorMessage] = useState<string>("");
   useEffect(() => {
-    if (loginUser.isLogin) {
+    if (loginUser != null) {
       navigate("/welcome", { replace: true });
     }
   }, []);

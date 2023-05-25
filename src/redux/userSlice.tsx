@@ -13,7 +13,12 @@ if (userInitialState.length > 0) {
   }
 }
 
-const LoginInitalState: { loginUser: userDataType | {} } = { loginUser: {} };
+export interface LoginInitalStateType {
+  loginUser: userDataType | null;
+}
+const LoginInitalState: LoginInitalStateType = {
+  loginUser: null,
+};
 for (let i = 0; i < userInitialState.length; i++) {
   if (userData[i]["isLogin"] == true) {
     LoginInitalState.loginUser = userData[i];
@@ -88,7 +93,7 @@ export const userLoginSlice = createSlice({
         tempState.isLogin = false;
         userList.push(tempState);
       }
-      state.loginUser = {};
+      state.loginUser = null;
       localStorage.setItem("userData", JSON.stringify(userList));
     },
   },
